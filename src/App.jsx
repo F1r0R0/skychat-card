@@ -21,9 +21,9 @@ const App = () => {
 
   const togglePlay = () => {
     if (isPlaying) {
-      audioRef.current.pause();
-    } else {
       audioRef.current.play();
+    } else {
+      audioRef.current.pause();
     }
     setIsPlaying(!isPlaying);
   };
@@ -66,20 +66,16 @@ const App = () => {
           <div className="relative mb-4 group">
             <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full blur-md opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="relative w-28 h-28 bg-[#16161a] rounded-full border-2 border-white/10 flex items-center justify-center overflow-hidden">
-              
-              {/* ПУТЬ ИСПРАВЛЕН НА .PNG */}
               <img 
                 src="/avatar.png" 
                 alt="Skychat Logo" 
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.target.onerror = null; 
-                  // Если картинка всё еще не найдена, покажем цветной градиент вместо иконки музыки
                   e.target.style.display = 'none';
                   e.target.parentNode.style.background = 'linear-gradient(to bottom right, #6366f1, #a855f7)';
                 }}
               />
-              
             </div>
             <div className="absolute -bottom-1 -right-1 bg-indigo-500 p-1.5 rounded-full border-4 border-[#0a0a0c]">
               <Zap size={14} className="text-white fill-white" />
@@ -118,27 +114,29 @@ const App = () => {
           ))}
         </div>
 
-        {/* Скрытый аудио элемент */}
+        {/* Аудио элемент с твоим треком */}
         <audio 
           ref={audioRef} 
-          src="https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3" 
+          src="/track.mp3" 
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
           onTimeUpdate={handleTimeUpdate}
           loop
         />
 
-        {/* Виджет музыки (Реальный плеер) */}
+        {/* Виджет музыки */}
         <div className="bg-black/40 border border-white/5 rounded-3xl p-4 mb-8">
           <div className="flex items-center gap-4">
             <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-gradient-to-br from-indigo-900 to-black flex items-center justify-center border border-white/10">
-              <div className={`flex gap-0.5 items-end h-4 ${isPlaying ? 'animate-pulse' : ''}`}>
+              <div className={`flex gap-0.5 items-end h-4 ${isPlaying ? 'animate-bounce' : ''}`}>
                 <div className="w-1 bg-white/60 h-2" />
                 <div className="w-1 bg-white/60 h-4" />
                 <div className="w-1 bg-white/60 h-3" />
               </div>
             </div>
             <div className="flex-1 min-w-0">
-              <h4 className="text-sm font-semibold text-white truncate">Infinite Horizons</h4>
-              <p className="text-xs text-slate-500 truncate">Joy & Open Possibilities</p>
+              <h4 className="text-sm font-semibold text-white truncate">Pixelated Power Up</h4>
+              <p className="text-xs text-slate-500 truncate">Skychat's Vibe</p>
             </div>
             <button 
               onClick={togglePlay}
@@ -188,7 +186,8 @@ const App = () => {
         </div>
 
         {/* Футер */}
-        <div className="mt-8 text-center">
+        <div className="mt-8 text-center flex flex-col gap-1">
+          <p className="text-xs font-medium text-slate-400">Creator-Skychat</p>
           <p className="text-[10px] uppercase tracking-[0.2em] text-slate-600 font-bold">
             &copy; 2026 SKYCHAT EST.
           </p>
