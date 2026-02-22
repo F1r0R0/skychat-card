@@ -19,13 +19,16 @@ const App = () => {
   const [progress, setProgress] = useState(0);
   const audioRef = useRef(null);
 
+  // Исправленная функция переключения
   const togglePlay = () => {
+    if (!audioRef.current) return;
+
     if (isPlaying) {
-      audioRef.current.play();
-    } else {
       audioRef.current.pause();
+    } else {
+      audioRef.current.play();
     }
-    setIsPlaying(!isPlaying);
+    // Состояние isPlaying обновится автоматически через события onPlay/onPause
   };
 
   const handleTimeUpdate = () => {
