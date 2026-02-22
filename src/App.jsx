@@ -8,7 +8,6 @@ import {
   Github, 
   Play, 
   Pause, 
-  Volume2,
   Copy,
   Check,
   Sparkles
@@ -67,8 +66,20 @@ const App = () => {
           <div className="relative mb-4 group">
             <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full blur-md opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="relative w-28 h-28 bg-[#16161a] rounded-full border-2 border-white/10 flex items-center justify-center overflow-hidden">
-              <span className="text-4xl font-black bg-gradient-to-br from-white to-white/40 bg-clip-text text-transparent">S</span>
-              {/* Можно заменить на <img src="..." /> */}
+              
+              {/* ПУТЬ ИСПРАВЛЕН НА .PNG */}
+              <img 
+                src="/avatar.png" 
+                alt="Skychat Logo" 
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.onerror = null; 
+                  // Если картинка всё еще не найдена, покажем цветной градиент вместо иконки музыки
+                  e.target.style.display = 'none';
+                  e.target.parentNode.style.background = 'linear-gradient(to bottom right, #6366f1, #a855f7)';
+                }}
+              />
+              
             </div>
             <div className="absolute -bottom-1 -right-1 bg-indigo-500 p-1.5 rounded-full border-4 border-[#0a0a0c]">
               <Zap size={14} className="text-white fill-white" />
